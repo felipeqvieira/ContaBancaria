@@ -1,0 +1,4 @@
+C:\Users\felip\OneDrive\Documentos\Chelps' Life\Projetos\AceleraMaker\Projetos\ContaBancaria\obj\Debug\net10.0\ContaBancaria.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\felip\OneDrive\Documentos\Chelps' Life\Projetos\AceleraMaker\Projetos\ContaBancaria\obj\Debug\net10.0\ContaBancaria.AssemblyInfoInputs.cache
+C:\Users\felip\OneDrive\Documentos\Chelps' Life\Projetos\AceleraMaker\Projetos\ContaBancaria\obj\Debug\net10.0\ContaBancaria.AssemblyInfo.cs
+C:\Users\felip\OneDrive\Documentos\Chelps' Life\Projetos\AceleraMaker\Projetos\ContaBancaria\obj\Debug\net10.0\ContaBancaria.csproj.CoreCompileInputs.cache
