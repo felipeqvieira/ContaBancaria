@@ -78,6 +78,23 @@ O sistema apresenta o seguinte conjunto de funcionalidades, cujo comportamento e
   - `System.IO`: para operações de leitura e gravação no sistema de arquivos;
   - `System.Linq`: para consultas em coleções.
 
+## Executando o código
+---
+Pré-requisitos:
+
+  SDK do .NET 10.0 instalado no seu sistema.
+
+Passo a passo para execução local:
+
+  Faça o clone deste repositório ou o download do código-fonte para a sua máquina.
+
+  Abra o seu terminal de preferência (Command Prompt, PowerShell, bash) e navegue até a pasta raiz do projeto, onde o arquivo ContaBancaria.csproj está localizado.
+
+  Execute o seguinte comando para compilar e iniciar a aplicação:
+  ```bash
+  dotnet run
+  ```
+
 ## Boas práticas
 ---
 Uso extensivo de Herança e Polimorfismo. A classe base abstrata `Conta` delega comportamentos específicos para as suas subclasses (`ContaCorrente` e `ContaPoupanca`).
