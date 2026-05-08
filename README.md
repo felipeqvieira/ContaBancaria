@@ -5,6 +5,39 @@
 O Banco Acelera Maker é uma aplicação de console interativa desenvolvida em C# (.NET 10). O projeto simula o ecossistema de gerenciamento de contas bancárias de uma instituição financeira, suportando o controle completo e a persistência de dados em arquivos locais.
 A aplicação é desenhada para emular operações financeiras do mundo real, gerenciando diferentes modalidades de contas (Conta Corrente e Conta Poupança) por meio de um menu interativo de terminal.
 
+## Estrutura do Projeto
+---
+
+ContaBancaria/
+│
+├── 📁 Controllers/
+│   └── 📄 ContaController.cs    # Orquestração de lógica e persistência
+│
+├── 📁 Interfaces/
+│   └── 📄 IContaRepository.cs   # Contrato de abstração do repositório
+│
+├── 📁 Models/
+│   ├── 📄 Conta.cs              # Classe base abstrata
+│   ├── 📄 ContaCorrente.cs      # Especialização para conta corrente
+│   ├── 📄 ContaPoupanca.cs      # Especialização para conta poupança
+│   └── 📄 TipoConta.cs          # Enumerador de tipos de conta
+│
+├── 📁 Utils/
+│   ├── 📄 Cores.cs              # Utilitário de formatação visual
+│   └── 📄 InputHelper.cs        # Auxiliar de validação de entradas
+│
+├── 📄 Menu.cs                   # Ponto de entrada (Interface de Usuário)
+├── 📄 ContaBancaria.csproj      # Configuração do projeto .NET
+└── 📄 contas.json               # Banco de dados (gerado em tempo de execução)
+
+Models: Classes que representam os dados e aplicam as regras de negócio base.
+
+Controllers: Gera coleção de contas e executa a persistência de dados.
+
+Interfaces: Define os contratos obrigatórios para as operações do sistema.
+
+Utils: Classes utilitárias que garantem a segurança das entradas e a experiência visual no console.
+
 ## Funcionalidades
 ---
 O sistema apresenta o seguinte conjunto de funcionalidades, cujo comportamento esperado baseia-se nas regras de negócio implementadas:
@@ -56,5 +89,3 @@ Uso dos atributos `[JsonDerivedType]` orienta o serializador a preservar a ident
 O processo de salvamento utiliza arquivos temporários e substituição (`File.Move`).
 
 Todas as classes, métodos e interfaces públicas estão documentadas seguindo o padrão oficial da Microsoft (`/// <summary>`).
-
-
