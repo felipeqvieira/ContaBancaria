@@ -8,27 +8,29 @@ A aplicação é desenhada para emular operações financeiras do mundo real, ge
 ## Estrutura do Projeto
 ---
 
+```text
 ContaBancaria/
 │
 ├── 📁 Controllers/
-│   └── 📄 ContaController.cs    # Orquestração de lógica e persistência
+│   └── 📄 ContaController.cs
 │
 ├── 📁 Interfaces/
-│   └── 📄 IContaRepository.cs   # Contrato de abstração do repositório
+│   └── 📄 IContaRepository.cs
 │
 ├── 📁 Models/
-│   ├── 📄 Conta.cs              # Classe base abstrata
-│   ├── 📄 ContaCorrente.cs      # Especialização para conta corrente
-│   ├── 📄 ContaPoupanca.cs      # Especialização para conta poupança
-│   └── 📄 TipoConta.cs          # Enumerador de tipos de conta
+│   ├── 📄 Conta.cs
+│   ├── 📄 ContaCorrente.cs
+│   ├── 📄 ContaPoupanca.cs
+│   └── 📄 TipoConta.cs
 │
 ├── 📁 Utils/
-│   ├── 📄 Cores.cs              # Utilitário de formatação visual
-│   └── 📄 InputHelper.cs        # Auxiliar de validação de entradas
+│   ├── 📄 Cores.cs
+│   └── 📄 InputHelper.cs
 │
-├── 📄 Menu.cs                   # Ponto de entrada (Interface de Usuário)
-├── 📄 ContaBancaria.csproj      # Configuração do projeto .NET
-└── 📄 contas.json               # Banco de dados (gerado em tempo de execução)
+├── 📄 Menu.cs
+├── 📄 ContaBancaria.csproj
+└── 📄 contas.json
+```
 
 Models: Classes que representam os dados e aplicam as regras de negócio base.
 
