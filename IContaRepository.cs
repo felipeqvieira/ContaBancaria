@@ -16,5 +16,8 @@ namespace ContaBancaria
         void Sacar(int numero, decimal valor);
         void Depositar(int numero, decimal valor);
         void Transferir(int numeroOrigem, int numeroDestino, decimal valor);
+
+        // adicionando na interface para poder retornar a conta na opção de atualizar conta
+        Conta? BuscarNaCollection(int numero);
     }
 }

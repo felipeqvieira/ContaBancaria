@@ -18,7 +18,7 @@ public class ContaController : IContaRepository
     }
 
     // Busca conta na lista
-    private Conta? BuscarNaCollection(int numero)
+    public Conta? BuscarNaCollection(int numero)
     {
         foreach (var conta in listaContas)
         {
@@ -142,4 +142,6 @@ public class ContaController : IContaRepository
             Console.WriteLine("\nConta de Origem e/ou Conta de Destino não encontradas!");
         }
     }
+
+    
 }
