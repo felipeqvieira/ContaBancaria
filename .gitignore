@@ -1,0 +1,8 @@
+# Ignorar pastas de build do .NET
+bin/
+obj/
+
+# Ignorar arquivos de banco de dados e temporarios
+contas.json
+contas_backup_*.json
+*.tmp
