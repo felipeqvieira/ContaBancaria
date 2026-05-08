@@ -18,6 +18,12 @@ namespace ContaBancaria
         // Sobrescrever por conta do limite
         public override bool Sacar(decimal valor)
         {
+            //valida argumento > 0
+            if(valor <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(valor), "O valor do depósito deve ser maior que zero.");
+            }
+
             // Se saldo + Limite é menor que valor
             if((this.Saldo + this.Limite) < valor)
             {

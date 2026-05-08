@@ -31,6 +31,12 @@ public class ContaController : IContaRepository
     //Adiciona conta na lista
     public void Cadastrar(Conta conta)
     {
+        // verifica se conta é null
+        if (conta == null)
+        {
+            throw new ArgumentNullException(nameof(conta), "Não é possível cadastrar uma conta nula.");
+        }
+
         // Atribui o número gerado antes de salvar
         conta.Numero = GerarNumero();
         listaContas.Add(conta);
@@ -125,6 +131,12 @@ public class ContaController : IContaRepository
 
     public void Transferir(int numeroOrigem, int numeroDestino, decimal valor)
     {
+        // verifica se valor > 0
+        if(valor <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(valor), "O valor da transferência deve ser maior que zero.");
+        }
+
         Conta? contaOrigem = BuscarNaCollection(numeroOrigem);
         Conta? contaDestino = BuscarNaCollection(numeroDestino);
 

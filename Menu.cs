@@ -32,15 +32,11 @@ public class Menu
             Console.WriteLine("*****************************************************");
             Console.Write("Entre com a opção desejada: " + Cores.CorReset);
 
-            // Tratamento de erros caso haja erro de formato
-            try 
-            {
-                opcao = Convert.ToInt32(Console.ReadLine());
-            }
-            catch (FormatException)
+            // verifica conversão para int
+            if (!int.TryParse(Console.ReadLine(), out opcao))
             {
                 Console.WriteLine(Cores.CorTextoVermelho + "\nPor favor, digite apenas números inteiros." + Cores.CorReset);
-                opcao = 0;
+                opcao = 0; // opção inválida
             }
 
             // opção de saída
@@ -57,66 +53,110 @@ public class Menu
                 case 1:
                     Console.WriteLine(Cores.CorTextoAzul + "\nCriar Conta\n" + Cores.CorReset);
                     
-                    try
+                    bool cancelar = false; // flag para cancelar operação
+
+                    // valida agência
+                    int agencia = 0;
+                    while (true)
                     {
-                        Console.Write("Digite o Número da Agência: ");
-                        int agencia = Convert.ToInt32(Console.ReadLine());
-                        
-                        string titular = string.Empty;
-                        bool nomeValido = false;
+                        Console.Write("Digite o Número da Agência (ou '0' para cancelar): ");
 
-                        // Loop de validação do nome do titular
-                        while (!nomeValido)
-                        {
-                            Console.Write("Digite o Nome do Titular: ");
-                            // O operador ?? trata os warnings de valor nulo
-                            titular = Console.ReadLine() ?? string.Empty;
+                        // verifica se é vazia
+                        string inputAgencia = Console.ReadLine() ?? string.Empty;
 
-                            //verifica se a string está correta (apenas letras e não vazia)
-                            if (!string.IsNullOrWhiteSpace(titular) && titular.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
-                            {
-                                nomeValido = true;
-                            }
-                            else
-                            {
-                                Console.WriteLine(Cores.CorTextoVermelho + "Nome inválido! Digite apenas letras e espaços." + Cores.CorReset + "\n");
-                            }
-                        }
+                        // se for zero, sai
+                        if (inputAgencia == "0") { cancelar = true; break; }
+
+                        //verifica se é inteiro e maior que zero
+                        if (int.TryParse(inputAgencia, out agencia) && agencia > 0) break;
                         
-                        Console.Write("Digite o Tipo da Conta (1 - Corrente | 2 - Poupança): ");
-                        int tipo = Convert.ToInt32(Console.ReadLine());
-                        
-                        decimal saldoInicial = 0m;
-                        
-                        //caso seja conta corrente
-                        if (tipo == 1)
-                        {
-                            Console.Write("Digite o Limite da Conta (R$): ");
-                            decimal limite = Convert.ToDecimal(Console.ReadLine());
-                            
-                            // Instancia uma Conta Corrente. O número é passado como 0, pois o Controller o gerará.
-                            ContaCorrente cc = new ContaCorrente(0, agencia, (TipoConta)tipo, titular, saldoInicial, limite);
-                            contas.Cadastrar(cc);
-                        }
-                        //caso seja conta poupança
-                        else if (tipo == 2)
-                        {
-                            Console.Write("Digite o Dia do Aniversário da Conta: ");
-                            int aniversario = Convert.ToInt32(Console.ReadLine());
-                            
-                            // Instancia uma Conta Poupança.
-                            ContaPoupanca cp = new ContaPoupanca(0, agencia, (TipoConta)tipo, titular, saldoInicial, aniversario);
-                            contas.Cadastrar(cp);
-                        }
-                        //caso seja um valor inválido
-                        else
-                        {
-                            Console.WriteLine(Cores.CorTextoVermelho + "\nTipo de Conta Inválido!" + Cores.CorReset);
-                        }
+                        Console.WriteLine(Cores.CorTextoVermelho + "Agência inválida! Digite um número inteiro maior que zero." + Cores.CorReset + "\n");
                     }
-                    catch (FormatException)
+                    if (cancelar) break;
+
+                    // validação de titular
+                    string titular = string.Empty;
+                    while (true)
                     {
-                        Console.WriteLine(Cores.CorTextoVermelho + "\nErro de formatação: Você digitou letras onde deveria haver números." + Cores.CorReset);
+                        Console.Write("Digite o Nome do Titular (ou '0' para cancelar): ");
+                        // verifica se é vazia
+                        titular = Console.ReadLine() ?? string.Empty;
+
+                        //se for zero, sai
+                        if (titular == "0") { cancelar = true; break; }
+
+                        // valida se for vazia ou espaço em branco e tiver só caractere
+                        if (!string.IsNullOrWhiteSpace(titular) && titular.All(c => char.IsLetter(c) || char.IsWhiteSpace(c))) break;
+                        
+                        Console.WriteLine(Cores.CorTextoVermelho + "Nome inválido! Digite apenas letras e espaços." + Cores.CorReset + "\n");
+                    }
+                    if (cancelar) break;
+
+                    // validação do tipo
+                    int tipo = 0;
+                    while (true)
+                    {
+                        Console.Write("Digite o Tipo da Conta (1 - Corrente | 2 - Poupança | 0 - Cancelar): ");
+                        // verifica se é vazia
+                        string inputTipo = Console.ReadLine() ?? string.Empty;
+
+                        // se for zero, sai
+                        if (inputTipo == "0") { cancelar = true; break; }
+
+                        //verifica se é inteiro e se é 1 ou 2
+                        if (int.TryParse(inputTipo, out tipo) && (tipo == 1 || tipo == 2)) break;
+                        
+                        Console.WriteLine(Cores.CorTextoVermelho + "Tipo inválido! Digite 1 ou 2." + Cores.CorReset + "\n");
+                    }
+                    if (cancelar) break;
+
+                    decimal saldoInicial = 0m;
+                    
+                    if (tipo == 1) // Corrente
+                    {
+                        decimal limite = 0m;
+                        while (true)
+                        {
+                            Console.Write("Digite o Limite da Conta (R$) (ou '-1' para cancelar): ");
+                            // verifica se limite é vazio
+                            string inputLimite = Console.ReadLine() ?? string.Empty;
+                            // se for -1 cancela
+                            if (inputLimite == "-1") { cancelar = true; break; }
+                            //verifica se é maior ou igual a zero e se é inteiro
+                            if (decimal.TryParse(inputLimite, out limite) && limite >= 0) break;
+                            
+                            Console.WriteLine(Cores.CorTextoVermelho + "Limite inválido! Digite um valor numérico positivo." + Cores.CorReset + "\n");
+                        }
+                        if (cancelar) break;
+
+                        // cria instância da conta com dados atualizados
+                        ContaCorrente cc = new ContaCorrente(0, agencia, (TipoConta)tipo, titular, saldoInicial, limite);
+                        // cadastra conta
+                        contas.Cadastrar(cc);
+                    }
+                    else if (tipo == 2) // Poupança
+                    {
+                        int aniversario = 0;
+                        while (true)
+                        {
+                            Console.Write("Digite o Dia do Aniversário da Conta (1 a 28) (ou '0' para cancelar): ");
+                            //verifica se é vazio
+                            string inputAniv = Console.ReadLine() ?? string.Empty;
+
+                            // se for zero, sai
+                            if (inputAniv == "0") { cancelar = true; break; }
+
+                            // verifica se é inteiro e se está entre 1 e 28
+                            if (int.TryParse(inputAniv, out aniversario) && aniversario >= 1 && aniversario <= 28) break;
+                            
+                            Console.WriteLine(Cores.CorTextoVermelho + "Dia inválido! Digite um número entre 1 e 28." + Cores.CorReset + "\n");
+                        }
+                        if (cancelar) break;
+
+                        // cria instância com dados atualizados
+                        ContaPoupanca cp = new ContaPoupanca(0, agencia, (TipoConta)tipo, titular, saldoInicial, aniversario);
+                        //cadastra conta
+                        contas.Cadastrar(cp);
                     }
                     break;
 

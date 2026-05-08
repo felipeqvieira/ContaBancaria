@@ -23,6 +23,12 @@ namespace ContaBancaria
         // Retorna true se deu certo, false se não tem saldo
         public virtual bool Sacar(decimal valor)
         {
+
+            if (valor <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(valor), "O valor do saque deve ser maior que zero.");
+            }
+
             if(this.Saldo < valor)
             {
                 Console.WriteLine("\nSaldo insuficiente!");
@@ -36,6 +42,13 @@ namespace ContaBancaria
         // Soma o valor no saldo
         public virtual void Depositar(decimal valor)
         {
+
+            //verifica argumento valor > 0
+            if(valor <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(valor), "O valor do depósito deve ser maior que zero.");
+            }
+
             this.Saldo += valor;
         }
         

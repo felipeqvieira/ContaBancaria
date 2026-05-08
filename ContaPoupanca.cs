@@ -18,6 +18,7 @@ namespace ContaBancaria
         // Sobrescreve para utilizar aniversário. Caso seja o dia do aniversário, adiciona juros no saldo da conta uma vez.
         public override void Depositar(decimal valor)
         {
+
             DateTime hoje = DateTime.Now;
 
             // Verifica se hoje é o dia do aniversário
